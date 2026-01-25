@@ -14,9 +14,9 @@ using AcadApp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace test.Commands
 {
-    public class AppCommands 
+    public class AppCommands
     {
-      
+
         [CommandMethod("LOGIN")]
         public void LOGIN()
         {
@@ -47,6 +47,17 @@ namespace test.Commands
 
 
         }
+        [CommandMethod("PROJECT_SELECT")]
+        public void PROJECTSELECT()
+        {
+            Document doc = AcadApp.DocumentManager.MdiActiveDocument;
+            Database db = doc.Database;
+            Editor editor = doc.Editor;
+            ProjectSelect ps = new ProjectSelect();
+            ps.Execute();
+            editor.WriteMessage("\nProject Select command executed.");
 
+
+        }
     }
 }

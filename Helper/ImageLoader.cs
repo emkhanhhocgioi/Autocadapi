@@ -1,30 +1,37 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Reflection;
 using System.Windows.Media.Imaging;
 
 namespace test.Helper
 {
     public class ImageLoader
     {
-        public BitmapImage LoadFromResource(string resourcePath)
+        public BitmapImage LoadFromFile(string filePath)
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
-
-            using (Stream stream = asm.GetManifestResourceStream(resourcePath))
+            try
             {
-                if (stream == null) return null;
+                if (!File.Exists(filePath))
+                {
+                    System.Windows.Forms.MessageBox.Show($"Image not found: {filePath}");
+                    return null;
+                }
 
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.StreamSource = stream;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-                image.Freeze(); // BẮT BUỘC cho AutoCAD + WPF
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(filePath, UriKind.Absolute);
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze(); // Important for cross-thread access
 
-                return image;
+                return bitmapImage;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Error loading image: {ex.Message}");
+                return null;
             }
         }
-
     }
 }
