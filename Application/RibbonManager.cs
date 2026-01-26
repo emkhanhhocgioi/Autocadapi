@@ -14,8 +14,8 @@ namespace test.Application
     {
         public static string loginIcon = @"C:\Users\hidra\source\repos\test\Assets\login.png";
         public static string logoutIcon = @"C:\Users\hidra\source\repos\test\Assets\logout.png";
-         
-       
+
+
         private static RibbonButton _LoginInBtn;
         private static RibbonButton _LoginOutBtn;
         private static RibbonButton _ProjectSelect;
@@ -45,7 +45,7 @@ namespace test.Application
             RibbonPanel panel = new RibbonPanel
             {
                 Source = panelSource
-               
+
             };
             RibbonPanel panel2 = new RibbonPanel
             {
@@ -98,10 +98,12 @@ namespace test.Application
                 _LoginOutBtn.IsEnabled = authService.IsLoggedIn;
             }
 
-            if (_ProjectSelect != null) {
+            if (_ProjectSelect != null)
+            {
                 _ProjectSelect.IsEnabled = authService.IsLoggedIn;
-       
+
             }
 
+        }
     }
 }

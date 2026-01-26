@@ -14,7 +14,7 @@ namespace test.ViewModel
         public Action RequestClose;
        
         public ObservableCollection<Project> ProjectCollection { get; set; }
-        public RelayCommand SelectProjectCommand => new RelayCommand(() =>);
+        
 
         public List<Project> Projects { get; set; }
 
@@ -181,7 +181,7 @@ namespace test.ViewModel
 
         public void SetActiveProject()
         {
-            ProjectService.ActiveProjectID = SelectedProject.ProjectID;
+            ProjectService.ActiveProjectID = SelectedProject;
         }
 
         public void Dispose()

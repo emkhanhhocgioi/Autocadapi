@@ -10,6 +10,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using test.Actions;
+using test.View;
 using AcadApp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace test.Commands
@@ -56,8 +57,21 @@ namespace test.Commands
             ProjectSelect ps = new ProjectSelect();
             ps.Execute();
             editor.WriteMessage("\nProject Select command executed.");
-
-
         }
-    }
+        [CommandMethod("SHOWPALETTE")]
+        public static void SHOWPALETTE()
+        {
+            Document doc = AcadApp.DocumentManager.MdiActiveDocument;
+            Database db = doc.Database;
+            Editor editor = doc.Editor;
+            OpenPalette opensp = new OpenPalette();
+            PalleteControl pc = new PalleteControl();
+            pc.DataContext = new ViewModel.PallateControlVM();
+            opensp.Execute(pc);
+            editor.WriteMessage("\nShow Palette command executed.");
+        }
+
+       
+    } 
 }
+

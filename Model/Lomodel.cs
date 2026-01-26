@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using test.Model;
 
-namespace test.Service
+namespace test.Model
 {
-    internal class ProjectService
-    {
-        public static Project ActiveProjectID { get; set; }
+    public class Lomodel
 
-        public ProjectService()
+    {
+
+
+        public Lomodel()
         {
             
         }
