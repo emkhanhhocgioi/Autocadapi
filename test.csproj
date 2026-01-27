@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\AddLo.cs" />
+    <Compile Include="Actions\DBPallete.cs" />
     <Compile Include="Actions\DrawLineOnMouse.cs" />
     <Compile Include="Actions\Loginaction.cs" />
     <Compile Include="Actions\LogoutAction.cs" />
@@ -123,10 +124,20 @@
     <Compile Include="Service\authService.cs" />
     <Compile Include="Service\ProjectService.cs" />
     <Compile Include="ViewModel\AddloViewModel.cs" />
+    <Compile Include="ViewModel\DBViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PallateControlVM.cs" />
     <Compile Include="ViewModel\ProjectSelectViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\CreateRoad.xaml.cs">
+      <DependentUpon>CreateRoad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DBcontrolMenu.xaml.cs">
+      <DependentUpon>DBcontrolMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DynamicBlockControl.xaml.cs">
+      <DependentUpon>DynamicBlockControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Input.xaml.cs">
       <DependentUpon>Input.xaml</DependentUpon>
     </Compile>
@@ -146,6 +157,18 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Components\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateRoad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DBcontrolMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DynamicBlockControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

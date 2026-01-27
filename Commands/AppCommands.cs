@@ -70,8 +70,29 @@ namespace test.Commands
             opensp.Execute(pc);
             editor.WriteMessage("\nShow Palette command executed.");
         }
+        [CommandMethod("ADDLO")]
+        public void ADDLO()
+        {
+            Document doc = AcadApp.DocumentManager.MdiActiveDocument;
+            Database db = doc.Database;
+            Editor editor = doc.Editor;
+            AddLo addlo = new AddLo();
+            addlo.execute();
+            editor.WriteMessage("\nAddLo command executed.");
 
-       
-    } 
+        }
+        [CommandMethod("DBCONTROL")]
+        public void DBCONTROL()
+        {
+            Document doc = AcadApp.DocumentManager.MdiActiveDocument;
+            Database db = doc.Database;
+            Editor editor = doc.Editor;
+            DynamicBlockControl dbcontrol = new DynamicBlockControl();
+            dbcontrol.DataContext = new ViewModel.DBViewModel();
+            DBPallete dbpallete = new DBPallete();
+            dbpallete.execute(dbcontrol);
+            editor.WriteMessage("\nDB Control command executed.");
+        }
+    }
 }
 

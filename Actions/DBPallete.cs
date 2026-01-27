@@ -1,16 +1,16 @@
 ﻿using Autodesk.AutoCAD.Windows;
 using System;
 using System.Drawing;
-using System.Windows.Forms.Integration; 
+using System.Windows.Forms.Integration;
 using test.View;
+
 
 namespace test.Actions
 {
-    public class OpenPalette
+    internal class DBPallete
     {
-        private static PaletteSet _paletteSet;
-    
-        public void Execute(PalleteControl userControl)
+        private PaletteSet _paletteSet;
+        public void execute(DynamicBlockControl userControl)
         {
             if (_paletteSet == null)
             {
@@ -41,16 +41,5 @@ namespace test.Actions
 
             _paletteSet.Visible = true;
         }
-     
-    
-    public void ClosePalette()
-        {
-            if (_paletteSet != null)
-            {
-                _paletteSet.Visible = false;
-            }
-
-
-        }
-    } 
+    }
 }

@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="test.View.DynamicBlockControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:test.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="300">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+           
+            
+        </Grid.ColumnDefinitions>
+
+      
+        <TabControl Grid.Column="1" Margin="5">
+
+            <!-- Stretch Tab -->
+            <TabItem Header="Stretch">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Stretch Parameter"
+                               FontSize="14"
+                               FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Distance:" Width="80"/>
+                        <TextBox Text="{Binding Distance, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                    </StackPanel>
+
+                    <Button Content="Apply Stretch"
+                            Command="{Binding ChangeDBstretch}"
+                            Width="120"
+                            Height="30"
+                            Margin="0,10"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Scale Tab -->
+            <TabItem Header="Scale">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Scale Parameter"
+                               FontSize="14"
+                               FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Scale:" Width="80"/>
+                        <TextBox Width="100"/>
+                    </StackPanel>
+
+                    <Button Content="Apply Scale"
+                            Width="120"
+                            Height="30"
+                            Margin="0,10"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Rotate Tab -->
+            <TabItem Header="Rotate">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Rotate Parameter"
+                               FontSize="14"
+                               FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="Angle:" Width="80"/>
+                        <TextBox Width="100"/>
+                    </StackPanel>
+
+                    <Button Content="Apply Rotate"
+                            Width="120"
+                            Height="30"
+                            Margin="0,10"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Visibility Tab -->
+            <TabItem Header="Visibility">
+                <StackPanel Margin="20">
+                    <TextBlock Text="Visibility Parameter"
+                               FontSize="14"
+                               FontWeight="Bold"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10">
+                        <TextBlock Text="State:" Width="80"/>
+                        <ComboBox Width="150">
+                            <ComboBoxItem Content="State 1"/>
+                            <ComboBoxItem Content="State 2"/>
+                            <ComboBoxItem Content="State 3"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Button Content="Apply Visibility"
+                            Width="140"
+                            Height="30"
+                            Margin="0,10"/>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</UserControl>
