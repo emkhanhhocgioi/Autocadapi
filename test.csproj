@@ -115,6 +115,7 @@
     <Compile Include="Components\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ConverterClass.cs" />
     <Compile Include="Helper\ImageLoader.cs" />
     <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\Lomodel.cs" />
@@ -127,14 +128,9 @@
     <Compile Include="ViewModel\DBViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PallateControlVM.cs" />
+    <Compile Include="ViewModel\ParameterEditVM.cs" />
     <Compile Include="ViewModel\ProjectSelectViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="View\CreateRoad.xaml.cs">
-      <DependentUpon>CreateRoad.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DBcontrolMenu.xaml.cs">
-      <DependentUpon>DBcontrolMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DynamicBlockControl.xaml.cs">
       <DependentUpon>DynamicBlockControl.xaml</DependentUpon>
     </Compile>
@@ -147,6 +143,9 @@
     <Compile Include="View\PalleteControl.xaml.cs">
       <DependentUpon>PalleteControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ParameterEdit.xaml.cs">
+      <DependentUpon>ParameterEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ProjectForm.xaml.cs">
       <DependentUpon>ProjectForm.xaml</DependentUpon>
     </Compile>
@@ -157,14 +156,6 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Components\BindablePasswordBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CreateRoad.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DBcontrolMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PalleteControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ParameterEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

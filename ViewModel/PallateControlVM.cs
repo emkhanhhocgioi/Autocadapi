@@ -13,7 +13,7 @@ namespace test.ViewModel
 {
     internal class PallateControlVM : ViewModelBase
     {
-        public Action RequestClose;
+        
 
         public RelayCommand DrawLineCM => new RelayCommand(execute =>DrawLine());
         public RelayCommand DrawCircle => new RelayCommand(execute =>DrawCircleCmd());

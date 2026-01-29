@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="test.View.ParameterEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:test.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+    <Grid Background="White">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <!-- Stretch Parameters Section -->
+                <TextBlock Text="Stretch Parameters"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Distance1" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding Distance1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Distance2" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding Distance2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="DistanceW" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding DistanceW, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <Button Content="Set Stretch"
+                        Command="{Binding ChangeStretchCommand}"
+                        Width="140"
+                        Height="30"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Left"/>
+
+                <!-- Separator -->
+                <Separator Margin="0,20,0,20"/>
+
+                <!-- Scale Parameters Section -->
+                <TextBlock Text="Scale Parameters"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Scale X" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding ScaleX, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Scale Y" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding ScaleY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Scale Z" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding ScaleZ, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <Button Content="Apply Scale"
+                        Command="{Binding ApplyScaleCommand}"
+                        Width="140"
+                        Height="30"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Left"/>
+
+                <!-- Separator -->
+                <Separator Margin="0,20,0,20"/>
+
+                <!-- Rotate Parameters Section -->
+                <TextBlock Text="Rotate Parameters"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Angle (degrees)" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding Angle2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Axis" Width="100"/>
+                    <TextBlock Text=": " />
+                    <ComboBox SelectedItem="{Binding RotateAxis, Mode=TwoWay}"
+                              Width="120">
+                        <ComboBoxItem Content="X-Axis"/>
+                        <ComboBoxItem Content="Y-Axis"/>
+                        <ComboBoxItem Content="Z-Axis"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button Content="Apply Rotation"
+                        Command="{Binding ApplyRotateCommand}"
+                        Width="140"
+                        Height="30"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Left"/>
+
+                <!-- Separator -->
+                <Separator Margin="0,20,0,20"/>
+
+                <!-- Flip Parameters Section -->
+                <TextBlock Text="Flip Parameters"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Flip Direction" Width="100"/>
+                    <TextBlock Text=": " />
+                    <ComboBox SelectedValue="{Binding FlipDirection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+              SelectedValuePath="Content"
+              Width="120">
+                        <ComboBoxItem Content="Default"/>
+                        <ComboBoxItem Content="Horizontal"/>
+                        <ComboBoxItem Content="Vertical"/>
+                    </ComboBox>
+                </StackPanel>
+             
+
+                <Button Content="Apply Flip"
+                        Command="{Binding ApplyFlipCommand}"
+                        Width="140"
+                        Height="30"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Left"/>
+             
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

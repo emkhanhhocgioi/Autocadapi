@@ -17,20 +17,24 @@ namespace test.Actions
                 string paletteName = "CustomPalette";
 
                 _paletteSet = new PaletteSet(
-                    paletteName,
-                    new Guid("68D660CE-F603-4978-93CB-AD3EEABC44D4")
+                    paletteName
+          
                 );
 
                 _paletteSet.Style =
                     PaletteSetStyles.ShowAutoHideButton |
                     PaletteSetStyles.ShowCloseButton |
                     PaletteSetStyles.Snappable;
-
+                     
                 _paletteSet.Opacity = 100;
-                _paletteSet.Size = new Size(500, 400);
+                _paletteSet.Size = new Size(500, 800);
                 _paletteSet.MinimumSize = new Size(250, 200);
 
-                // Wrap WPF control trong ElementHost
+                _paletteSet.DockEnabled = DockSides.Left | DockSides.Right;
+
+               
+                _paletteSet.Dock = DockSides.Right;
+
                 ElementHost host = new ElementHost();
                 host.AutoSize = true;
                 host.Dock = System.Windows.Forms.DockStyle.Fill;

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace test.View
 {
     /// <summary>
-    /// Interaction logic for CreateRoad.xaml
+    /// Interaction logic for ParameterEdit.xaml
     /// </summary>
-    public partial class CreateRoad : UserControl
+    public partial class ParameterEdit : UserControl
     {
-        public CreateRoad()
+        public ParameterEdit()
         {
             InitializeComponent();
         }
