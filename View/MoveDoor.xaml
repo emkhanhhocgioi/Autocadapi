@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="test.View.MoveDoor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400">
+
+    <Grid Background="White" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Tiêu đề -->
+        <TextBlock Grid.Row="0"
+                   Text="Move Door View"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,10"/>
+
+        <!-- Khu nhập liệu -->
+        <Grid Grid.Row="1" Margin="0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Flip A -->
+            <StackPanel Grid.Column="0" Margin="5">
+                <TextBlock Text="Flip State A" Margin="0,0,0,5"/>
+                <ComboBox Height="30"
+                          ItemsSource="{Binding FlipStates}"
+                          SelectedItem="{Binding Flipstate1, Mode=TwoWay}" />
+            </StackPanel>
+
+          
+            <!-- Flip B -->
+            <StackPanel Grid.Column="1" Margin="5">
+                <TextBlock Text="Flip State B" Margin="0,0,0,5"/>
+                <ComboBox Height="30"
+                          ItemsSource="{Binding FlipStates}"
+                          SelectedItem="{Binding Flipstate2, Mode=TwoWay}" />
+                      
+            </StackPanel>
+            <!-- Khoảng cách -->
+            <StackPanel Grid.Column="2" Margin="5">
+                <TextBlock Text="Khoảng cách" Margin="0,0,0,5"/>
+                <TextBox Height="30"
+               Text="{Binding CurrentDoor.WitdhBetween,
+                              UpdateSourceTrigger=PropertyChanged,
+                              Mode=TwoWay}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Nút -->
+        <Button Command="{Binding MoveDoorCommand}"
+                Grid.Row="2"
+                Content="Move Door"
+                Width="120"
+                Height="40"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Margin="0,20"/>
+    </Grid>
+</UserControl>

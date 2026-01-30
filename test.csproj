@@ -119,6 +119,7 @@
     <Compile Include="Helper\ImageLoader.cs" />
     <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\Lomodel.cs" />
+    <Compile Include="Model\MoveDoorModel.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Commands\Relaycommand.cs" />
@@ -139,6 +140,9 @@
     </Compile>
     <Compile Include="View\LoginForm.xaml.cs">
       <DependentUpon>LoginForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MoveDoor.xaml.cs">
+      <DependentUpon>MoveDoor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PalleteControl.xaml.cs">
       <DependentUpon>PalleteControl.xaml</DependentUpon>
@@ -168,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MoveDoor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

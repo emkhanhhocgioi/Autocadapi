@@ -52,6 +52,12 @@
                     <local:ParameterEdit Margin="10"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="MoveDoor">
+                <Grid>
+                    <!-- Đặt ParameterEdit trong Grid để hiển thị đầy đủ -->
+                    <local:MoveDoor Margin="10"/>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

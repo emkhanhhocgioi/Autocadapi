@@ -127,14 +127,13 @@
                     <TextBlock Text="Flip Direction" Width="100"/>
                     <TextBlock Text=": " />
                     <ComboBox SelectedValue="{Binding FlipDirection, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-              SelectedValuePath="Content"
-              Width="120">
+                              SelectedValuePath="Content"
+                              Width="120">
                         <ComboBoxItem Content="Default"/>
                         <ComboBoxItem Content="Horizontal"/>
                         <ComboBoxItem Content="Vertical"/>
                     </ComboBox>
                 </StackPanel>
-             
 
                 <Button Content="Apply Flip"
                         Command="{Binding ApplyFlipCommand}"
@@ -142,7 +141,41 @@
                         Height="30"
                         Margin="0,15,0,0"
                         HorizontalAlignment="Left"/>
-             
+
+                <!-- Separator -->
+                <Separator Margin="0,20,0,20"/>
+
+                <!-- Visibility Parameters Section -->
+                <TextBlock Text="Visibility Parameters"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Visibility" Width="100"/>
+                    <TextBlock Text=": " />
+                    <ComboBox SelectedValue="{Binding ElementVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              SelectedValuePath="Content"
+                              Width="120">
+                        <ComboBoxItem Content="Visible"/>
+                        <ComboBoxItem Content="Hidden"/>
+                        <ComboBoxItem Content="Collapsed"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Opacity" Width="100"/>
+                    <TextBlock Text=": " />
+                    <TextBox Text="{Binding ElementOpacity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                             Width="120"/>
+                </StackPanel>
+
+                <Button Content="Apply Visibility"
+                        Command="{Binding ApplyVisibilityCommand}"
+                        Width="140"
+                        Height="30"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Left"/>
 
             </StackPanel>
         </ScrollViewer>

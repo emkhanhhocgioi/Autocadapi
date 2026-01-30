@@ -1,18 +1,26 @@
 ﻿using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.Geometry;
 using System;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
+
 using System.Text;
 using System.Windows;
+using test.Model;
 using Acadapp = Autodesk.AutoCAD.ApplicationServices.Application;
 
 namespace test.ViewModel
 {
     internal class DBViewModel : ViewModelBase
     {
-        
+        public ObservableCollection<short> FlipStates { get; set; }
+     = new ObservableCollection<short>
+     {
+        0,
+        1
+     };
         private ObjectId? _currentBlockId;
 
         public RelayCommand SetBlockPropCommand => new RelayCommand(execute =>
@@ -35,6 +43,10 @@ namespace test.ViewModel
         public RelayCommand ApplyFlipCommand => new RelayCommand(execute =>
         {
             ChangeFlipState();
+        });
+        public RelayCommand MoveDoorCommand => new RelayCommand(execute =>
+        {
+            MoveDoor();
         });
         public DBViewModel()
         {
@@ -134,6 +146,17 @@ namespace test.ViewModel
 
         #endregion
 
+        private MoveDoorModel _currentDoor;
+
+        public MoveDoorModel CurrentDoor
+        {
+            get { return _currentDoor; }
+            set { _currentDoor = value;
+            OnPropertyChanged();
+           
+            }
+        }
+        
 
         public ObservableCollection<DynamicBlockProperty> DynamicBlockProperties { get; set; }
             = new ObservableCollection<DynamicBlockProperty>();
@@ -204,18 +227,16 @@ namespace test.ViewModel
                         }
                     }
 
-                    // QUAN TRỌNG: Các bước để update hình
-                    // 1. Đánh dấu block đã thay đổi
+                   
                     blref.RecordGraphicsModified(true);
 
-                    // 2. Commit transaction trước
+               
                     tr.Commit();
 
-                    // 3. Sau khi commit, regen để cập nhật hiển thị
+                
                     ed.Regen();
 
-                    // Hoặc có thể dùng UpdateDisplay nếu regen không hiệu quả
-                    // doc.Editor.UpdateScreen();
+                 
 
                     if (updatedCount > 0)
                     {
@@ -245,9 +266,6 @@ namespace test.ViewModel
             }
         }
 
-
-
-      
         public void GetBlockProp()
         {
             Document doc = Acadapp.DocumentManager.MdiActiveDocument;
@@ -536,7 +554,7 @@ namespace test.ViewModel
                     return;
                 }
 
-                // GỌI FlipCheck() MỘT LẦN Ở ĐÂY
+              
                 FlipCheck();
 
                 int updatedCount = 0;
@@ -593,7 +611,148 @@ namespace test.ViewModel
             }
         }
 
+        public void MoveDoor()
+        {
+            try
+            {
+                Document document = Acadapp.DocumentManager.MdiActiveDocument;
+                Database db = document.Database;
+                Editor ed = document.Editor;
 
+                // Di chuyển GetPoint ra ngoài DocumentLock
+                PromptPointOptions ppo = new PromptPointOptions("\nSpecify start point: ");
+                PromptPointResult starp = ed.GetPoint(ppo);
+                if (starp.Status != PromptStatus.OK) return;
+
+                PromptPointOptions ppo2 = new PromptPointOptions("\nSpecify end point: ");
+                PromptPointResult endp = ed.GetPoint(ppo2);
+                if (endp.Status != PromptStatus.OK) return;
+
+                // Di chuyển GetEntity ra ngoài DocumentLock và Transaction
+                PromptEntityOptions pet = new PromptEntityOptions("\nChoose a door to clone: ");
+                PromptEntityResult per = ed.GetEntity(pet);
+                if (per.Status != PromptStatus.OK) return;
+
+                using (DocumentLock dl = document.LockDocument())
+                {
+                    double widthBetween = endp.Value.DistanceTo(starp.Value);
+
+                    CurrentDoor = new MoveDoorModel
+                    {
+                        StartPoint = starp.Value,
+                        EndPoint = endp.Value,
+                        WitdhBetween = widthBetween,
+                        Flipstate1 = Flipstate1,
+                        Flipstate2 = Flipstate2,
+                    };
+
+                    ed.WriteMessage($"{starp.Value} and {endp.Value}");
+
+                    using (Transaction tr = db.TransactionManager.StartTransaction())
+                    {
+                        BlockTable bt = tr.GetObject(db.BlockTableId, OpenMode.ForRead) as BlockTable;
+                        BlockTableRecord btr = tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite) as BlockTableRecord;
+                        BlockReference originalBr = tr.GetObject(per.ObjectId, OpenMode.ForRead) as BlockReference;
+
+                        if (originalBr != null)
+                        {
+                            ObjectId blockId = originalBr.IsDynamicBlock ? originalBr.DynamicBlockTableRecord : originalBr.BlockTableRecord;
+                            BlockReference newBr = new BlockReference(originalBr.Position, blockId);
+
+                            newBr.Layer = originalBr.Layer;
+                            newBr.Rotation = originalBr.Rotation;
+                            newBr.ScaleFactors = originalBr.ScaleFactors;
+
+                            btr.AppendEntity(newBr);
+                            tr.AddNewlyCreatedDBObject(newBr, true);
+
+                            double blaspectRatio = 0;
+                            double originalW = 0;
+                            double originalDistance2 = 0;
+
+                            Vector3d v = CurrentDoor.StartPoint - CurrentDoor.EndPoint;
+                            double angle = v.AngleOnPlane(new Plane(Point3d.Origin, Vector3d.ZAxis));
+                            double deg = angle * 180 / Math.PI;
+                            ed.WriteMessage($"Angle : {deg}");
+
+                            if (originalBr.IsDynamicBlock && newBr.IsDynamicBlock)
+                            {
+                                DynamicBlockReferencePropertyCollection originalProps = originalBr.DynamicBlockReferencePropertyCollection;
+
+                                // THÊM dòng này để upgrade newBr sang ForWrite
+                                newBr.UpgradeOpen();
+
+                                DynamicBlockReferencePropertyCollection newProps = newBr.DynamicBlockReferencePropertyCollection;
+
+                                foreach (DynamicBlockReferenceProperty originalProp in originalProps)
+                                {
+                                    if (originalProp.PropertyName == "W")
+                                        originalW = Convert.ToDouble(originalProp.Value);
+
+                                    if (originalProp.PropertyName == "Distance2")
+                                        originalDistance2 = Convert.ToDouble(originalProp.Value);
+                                }
+
+                                if (originalDistance2 != 0)
+                                {
+                                    blaspectRatio = originalW / originalDistance2;
+                                }
+
+                                foreach (DynamicBlockReferenceProperty originalProp in originalProps)
+                                {
+                                    foreach (DynamicBlockReferenceProperty np in newProps)
+                                    {
+                                        if (np.PropertyName == originalProp.PropertyName && !np.ReadOnly)
+                                        {
+                                            if (np.PropertyName == "Angle2")
+                                            {
+                                                np.Value = (deg == 90) ? DegreeToRadian(90) : DegreeToRadian(0);
+                                            }
+                                            else if (np.PropertyName == "Flip state1")
+                                            {
+                                                np.Value = (short) CurrentDoor.Flipstate1;
+                                            }
+                                            else if (np.PropertyName == "Flip state2")
+                                            {
+                                                np.Value = (short) CurrentDoor.Flipstate2;
+                                            }
+                                            else if (np.PropertyName == "W")
+                                            {
+                                                np.Value = CurrentDoor.WitdhBetween;
+                                            }
+                                            else if (np.PropertyName == "Distance2")
+                                            {
+                                                np.Value = (blaspectRatio != 0) ? CurrentDoor.WitdhBetween / blaspectRatio : originalProp.Value;
+                                            }
+                                            else
+                                            {
+                                                np.Value = originalProp.Value;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            Vector3d moveVector = originalBr.Position.GetVectorTo(CurrentDoor.StartPoint);
+                            newBr.TransformBy(Matrix3d.Displacement(moveVector));
+
+                            ed.WriteMessage($"\nNew door created at {CurrentDoor.StartPoint}");
+                            newBr.RecordGraphicsModified(true);
+                        }
+
+                        tr.Commit();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    $"Lỗi:\n{e.Message}\n\n{e.StackTrace}",
+                    "Exception",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
         #region HelperFunc
         public static double DegreeToRadian(double deg)
         {
